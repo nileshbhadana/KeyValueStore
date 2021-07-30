@@ -1,8 +1,6 @@
-import json
+import json, random, string
 from os.path import exists
-from logger import createLogger
-
-
+from resources.logger import createLogger
 
 file_path="/tmp/KeyValue.json"
 LOGGER=createLogger()
@@ -18,7 +16,7 @@ class HelperFunction:
         else:
             return False
 
-    def loaddata():
+    def loaddata(self):
         data={}
         if exists(file_path):
             try:
@@ -31,7 +29,7 @@ class HelperFunction:
 
         return data
 
-    def writetofile(data):
+    def writetofile(self,data):
         try:
             file = open(file_path, "w")
             json.dump(data, file, indent = 4)
@@ -40,4 +38,6 @@ class HelperFunction:
             LOGGER.debug(e)
 
 
-
+def generate_secret():
+    secret = ''.join(random.choice(string.ascii_letters) for i in range(10))
+    return str(secret)

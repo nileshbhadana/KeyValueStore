@@ -1,0 +1,4 @@
+click
+flask
+python-socketio
+requests

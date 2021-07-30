@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+import os
+import click
+from click.decorators import command
+from commands import get, put, watch
+
+HOST = os.getenv("HOST", "http://localhost:5000/")
+
+@click.group(help="CLI tool to interact with key value store")
+def cli():
+    pass
+
+cli.add_command(get.get)
+cli.add_command(put.put)
+cli.add_command(watch.watch)
+
+
+if __name__ == '__main__':
+    cli()

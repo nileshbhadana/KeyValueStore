@@ -1,27 +1,29 @@
-from operations import KeyValueOperations
-import json
-from flask_restful import Api
-from flask import request
-import flask
-from logger import createLogger
+import socketio, json
+from resources.operations import KeyValueOperations
+from resources.stream import socket_server
+from resources.helpers import generate_secret, HelperFunction
+from flask import Flask, request
 
-LOGGER=createLogger()
+app = Flask(__name__)
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+app.wsgi_app = socketio.WSGIApp(socket_server, app.wsgi_app)
+app.config['SECRET_KEY'] = generate_secret()
 
 
-@app.route('/api', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get():
     KVObj=KeyValueOperations()
-    LOGGER.info("GET REQUEST")
     return KVObj.getValue(request.args['key'])
 
-@app.route('/api', methods=['PUT'])
+@app.route('/all', methods=['GET'])
+def get_all():
+    return json.dumps(HelperFunction().loaddata(), sort_keys=True, indent=4)
+
+@app.route('/', methods=['PUT'])
 def put():
     KVObj=KeyValueOperations()
-    data=json.loads(request.data.decode('utf8').replace("=", ':'))
-    LOGGER.info("PUT REQUEST")
+    data=json.loads(request.data)
     return KVObj.putKeyValue(data['key'],data['value'])
 
-app.run()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
