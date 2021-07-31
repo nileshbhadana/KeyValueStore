@@ -31,7 +31,8 @@ A Simple Key-Value store web service with a subscription feature. User is able t
     You can use docker-compose to start the service in a container. You need to have docker-compose installed on you machine. Here are the commands:
 
     ```bash
-    wget https://github.com/nileshbhadana/KeyValueStore/blob/main/docker-compose.yaml
+    git clone https://github.com/nileshbhadana/KeyValueStore.git
+    cd KeyValueStore/
     ``` 
     ```bash
     docker-compose up -d
