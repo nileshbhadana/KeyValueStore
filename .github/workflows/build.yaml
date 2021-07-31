@@ -36,11 +36,12 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: get_branch
 
-    - run:   echo "REPOSITORY_NAME=`echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}'| tr '[:upper:]' '[:lower:]' | sed -e "s/:refs//"`" >> $GITHUB_ENV
+    - run:   echo "##[set-output name=reponame;]$(echo ${GITHUB_REPOSITORY} | awk -F / '{print $2}'| tr '[:upper:]' '[:lower:]' | sed -e 's/:refs//'})"
       shell: bash
+      id: get_repo
 
     - name: Get commit id
-      run: echo "##[set-output name=version;]$(echo `git ls-remote https://${{ secrets.TOKEN }}@github.com/nileshbhadana/${REPOSITORY_NAME}.git ${{ steps.get_branch.outputs.branch }} | awk '{ print $1}' | cut -c1-7`)"
+      run: echo "##[set-output name=version;]$(echo `git ls-remote https://${{ secrets.TOKEN }}@github.com/nileshbhadana/${{ github.event.repository.name }}.git ${{ steps.get_branch.outputs.branch }} | awk '{ print $1}' | cut -c1-7`)"
       id: get_version
 
     - name: Set up Buildx 
@@ -62,8 +63,8 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
-          ghcr.io/nileshbhadana/${{ github.event.repository.name }}-${{ steps.get_branch.outputs.branch }}:latest
-          ghcr.io/nileshbhadana/${{ github.event.repository.name }}-${{ steps.get_branch.outputs.branch }}:${{ steps.get_version.outputs.version }}
+          ghcr.io/nileshbhadana/${{ steps.get_repo.outputs.reponame }}-${{ steps.get_branch.outputs.branch }}:latest
+          ghcr.io/nileshbhadana/${{ steps.get_repo.outputs.reponame }}-${{ steps.get_branch.outputs.branch }}:${{ steps.get_version.outputs.version }}
         build-args: |
           ACCESS_TOKEN_USR=${{ secrets.USER }}
           ACCESS_TOKEN_PWD=${{ secrets.TOKEN }}
