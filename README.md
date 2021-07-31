@@ -12,7 +12,6 @@ A Simple Key-Value store web service with a subscription feature. User is able t
 * Docker compose 
     > Refer [this](https://docs.docker.com/compose/install/) document to install docker-compose
 ---
-<br>
 
 ## 🛠️  Guide
 
