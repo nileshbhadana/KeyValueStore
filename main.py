@@ -1,9 +1,11 @@
-import socketio, json
+import json
+import socketio
+from werkzeug.exceptions import BadRequestKeyError
 from resources.operations import KeyValueOperations
 from resources.stream import socket_server
 from resources.helpers import generate_secret, HelperFunction
 from flask import Flask, request
-from werkzeug.exceptions import BadRequestKeyError
+
 
 app = Flask(__name__)
 
@@ -13,6 +15,7 @@ app.wsgi_app = socketio.WSGIApp(socket_server, app.wsgi_app)
 # Setting secret key
 app.config['SECRET_KEY'] = generate_secret()
 
+
 # Get Value request
 @app.route('/', methods=['GET'])
 def get():
@@ -20,32 +23,34 @@ def get():
     This function return the value for provided key in the request args.
     """
     try:
-        KVObj=KeyValueOperations()
+        KVObj = KeyValueOperations()
         return KVObj.getValue(request.args['key'])
-    except BadRequestKeyError as error:
+    except BadRequestKeyError:
         return "Error: Missing argument 'KEY'", 400
+
 
 # Get All value request
 @app.route('/all', methods=['GET'])
 def get_all():
     """
-    This function returns all the key value pairs stored. 
+    This function returns all the key value pairs stored.
     """
     try:
         return json.dumps(HelperFunction().loaddata(), sort_keys=True, indent=4)
     except Exception as error:
         return format(error), 502
 
+
 # Put key value request
 @app.route('/', methods=['PUT'])
 def put():
     """
-    This function creates/updates the key value pair provided. 
-    """    
+    This function creates/updates the key value pair provided.
+    """
     try:
-        KVObj=KeyValueOperations()
-        data=json.loads(request.data)
-        return KVObj.putKeyValue(data['key'],data['value'])
+        KVObj = KeyValueOperations()
+        data = json.loads(request.data)
+        return KVObj.putKeyValue(data['key'], data['value'])
     except Exception as error:
         raise SystemExit(error)
 

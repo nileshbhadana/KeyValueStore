@@ -1,8 +1,11 @@
-import click, requests, json, os
+import requests
+import json
+import os
+import click
 
 def putFunc(key, value):
     """
-    This function makes PUT request to the Flask server to create/update Key value pairs.
+    This function makes PUT request to server to create/update Key value pairs.
 
     Arguments:
         key: The key for which value to be set. [String]
@@ -10,7 +13,7 @@ def putFunc(key, value):
 
     Return:
         msg: The message about the update or create operation. [String]
-    """      
+    """     
     HOST = os.getenv("HOST", "http://localhost:5000/")
 
     params = {
@@ -26,11 +29,12 @@ def putFunc(key, value):
     except requests.exceptions.RequestException as error:
         raise SystemExit(error)
 
+
 @click.command()
 @click.argument('key')
 @click.argument('value')
 def put(key, value):
-    """ 
+    """
     Create / Update Key with Value
     """
     response = putFunc(key, value)

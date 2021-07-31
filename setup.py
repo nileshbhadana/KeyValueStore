@@ -1,7 +1,9 @@
 from setuptools import setup
 
+
 def read(fname):
     return open(fname).read()
+
 
 setup_requires = [
     'click',
@@ -9,6 +11,7 @@ setup_requires = [
     'python-socketio',
     'requests'
 ]
+
 
 setup(
     

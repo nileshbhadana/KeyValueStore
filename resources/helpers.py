@@ -1,12 +1,16 @@
-import json, random, string
+import json
+import random
+import string
 from os.path import exists
+# pylint: disable=import-error
 from resources.logger import createLogger
 
 # File where the key-value pairs will be stored for persistence
-file_path="/tmp/KeyValue.json"
+file_path = "/tmp/KeyValue.json"
 
 # Creating logger
-LOGGER=createLogger()
+LOGGER = createLogger()
+
 
 class HelperFunction:
     """
@@ -19,11 +23,11 @@ class HelperFunction:
         Constructor for Helper class.
         """
         pass
-    
-    def checkExistingKey(self,data,key):
+   
+    def checkExistingKey(self, data, key):
         """
-        This function checks if the KEY exists or not. 
-        
+        This function checks if the KEY exists or not.
+       
         Arguments:
             key: The key to check if exists or not. [String]
 
@@ -39,7 +43,7 @@ class HelperFunction:
     def loaddata(self):
         """
         This function reads the file where the key pairs are stored
-        
+       
         Arguments:
             None
 
@@ -47,22 +51,22 @@ class HelperFunction:
             data: Dictionary containing all the key-value pairs [Dictionary]
         """
 
-        data={}
+        data = {}
         if exists(file_path):
             try:
                 with open(file_path) as file:
                     data = json.load(file)
-            except Exception as e:
-                LOGGER.error(e)
+            except Exception as error:
+                LOGGER.error(error)
         else:
-            data={}
+            data = {}
 
         return data
 
-    def writetofile(self,data):
+    def writetofile(self, data):
         """
         This function writes data to the storage file
-        
+       
         Arguments:
             data: Dictionary containing all the key-value pairs [Dictionary]
 
@@ -71,22 +75,21 @@ class HelperFunction:
         """
 
         try:
-            file = open(file_path, "w")
-            json.dump(data, file, indent = 4)
-            file.close()
-        except Exception as e:
-            LOGGER.error(e)
+            with open(file_path, "w") as file:
+                json.dump(data, file, indent=4)
+        except Exception as error:
+            LOGGER.error(error)
 
 
 def generate_secret():
     """
     This function generates a random string of 10 characters
-    
+   
     Arguments:
         None
 
     Return:
         secret: String of 10 characters. [String]
-    """    
+    """  
     secret = ''.join(random.choice(string.ascii_letters) for i in range(10))
     return str(secret)
