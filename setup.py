@@ -12,10 +12,10 @@ setup_requires = [
 
 setup(
     name="KeyValueStore",
-    version="0.0.1",
+    version="0.1",
     author="Nilesh Bhadana",
     author_email="nileshbhadana3@gmail.com",
-    description="Key Value store",
+    description="Key-Value Store",
     long_description=read('README.md'),
     long_description_content_type="text/markdown",
     url="https://github.com/nileshbhadana/KeyValueStore",
@@ -29,5 +29,5 @@ setup(
         "Programming Language :: Python :: 3.9", 
     ],
     python_requires=">=3.9",
-    setup_requires=setup_requires,
+    setup_requires=setup_requires
 )

@@ -5,9 +5,9 @@ import os
 socket_client = socketio.Client()
 
 @click.command()
-def watch():
+def subscribe():
     """ 
-    Watch for key-value updates
+    Subscribe for key-value updates
     """
 
     HOST = os.getenv("HOST", "http://localhost:5000/")
