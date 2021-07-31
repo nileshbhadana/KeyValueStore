@@ -17,4 +17,4 @@ cli.add_command(subscribe.subscribe)
 
 
 if __name__ == '__main__':
-    cli()
+cli()
