@@ -1,4 +1,3 @@
-# pylint: disable=import-error
 from resources.helpers import HelperFunction, LOGGER
 from resources.stream import update
 

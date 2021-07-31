@@ -2,11 +2,10 @@ import json
 import random
 import string
 from os.path import exists
-# pylint: disable=import-error
 from resources.logger import createLogger
 
 # File where the key-value pairs will be stored for persistence
-file_path = "/tmp/KeyValue.json"
+file_path = "/app/store/KeyValue.json"
 
 # Creating logger
 LOGGER = createLogger()
@@ -58,6 +57,8 @@ class HelperFunction:
                     data = json.load(file)
             except Exception as error:
                 LOGGER.error(error)
+                raise SystemExit(error)
+                
         else:
             data = {}
 

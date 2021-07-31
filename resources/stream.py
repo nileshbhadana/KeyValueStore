@@ -1,6 +1,4 @@
 import socketio
-
-# pylint: disable=import-error
 from resources.helpers import LOGGER
 
 async_mode = 'threading'
