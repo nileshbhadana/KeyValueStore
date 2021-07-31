@@ -36,7 +36,7 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: get_branch
 
-    - run:   echo "##[set-output name=reponame;]$(echo ${GITHUB_REPOSITORY} | awk -F / '{print $2}'| tr '[:upper:]' '[:lower:]' | sed -e 's/:refs//'})"
+    - run:   echo "##[set-output name=reponame;]$(echo ${GITHUB_REPOSITORY} | awk -F / '{print $2}'| tr '[:upper:]' '[:lower:]' | sed -e 's/:refs//')"
       shell: bash
       id: get_repo
 
