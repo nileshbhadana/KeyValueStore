@@ -2,7 +2,6 @@
 
 import os
 import click
-from click.decorators import command
 from commands import get, put, subscribe
 
 HOST = os.getenv("HOST", "http://localhost:5000/")
@@ -11,6 +10,7 @@ HOST = os.getenv("HOST", "http://localhost:5000/")
 def cli():
     pass
 
+# Adding commands
 cli.add_command(get.get)
 cli.add_command(put.put)
 cli.add_command(subscribe.subscribe)

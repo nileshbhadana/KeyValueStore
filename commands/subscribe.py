@@ -17,11 +17,11 @@ def subscribe():
 
 @socket_client.event
 def connect():
-    print('connected to server')
+    print('Connected')
 
 @socket_client.event
 def disconnect():
-    print('disconnected from server')
+    print('Disconnected')
 
 @socket_client.on('Update')
 def my_broadcast_event(msg):

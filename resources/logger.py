@@ -1,6 +1,9 @@
 import sys, logging
 
 def createLogger():
+    """
+    Function to create a Logger for logging.
+    """
     stdout_handler = logging.StreamHandler(sys.stdout)
     handlers = [stdout_handler]
 

@@ -1,6 +1,14 @@
 import click, requests, os
 
 def getFunc(key):
+    """
+    This function makes GET request to the Flask server to get value for a particular key
+    Arguments:
+        key: The key for which value is required [String]
+
+    Return:
+        value: The value for provided key [String]
+    """
     HOST = os.getenv("HOST", "http://localhost:5000/")
 
     params = {
@@ -14,6 +22,14 @@ def getFunc(key):
         raise SystemExit(error)
 
 def getAllFunc():
+    """
+    This function makes GET request to the Flask server to get all the Key-value pairs stored.
+    Arguments:
+        None
+
+    Return:
+        data: All the key value pairs. [Dictionary]
+    """    
     HOST = os.getenv("HOST", "http://localhost:5000/")
     HOST = HOST + "/all"
 
@@ -25,7 +41,7 @@ def getAllFunc():
 
 @click.command()
 @click.argument('key', required=False)
-@click.option('--all', is_flag=True, help="Outputs all the Key Value pairs")
+@click.option('--all', is_flag=True, help="Outputs all the Key Value pairs stored")
 def get(key,all):
     """ 
     Get the value for a particular Key
