@@ -1,5 +1,6 @@
 FROM python:3.9.6-alpine3.14
 LABEL authors="nileshbhadana3@gmail.com"
+LABEL org.opencontainers.image.source https://github.com/nileshbhadana/KeyValueStore
 LABEL description="A key-value store with cli tool to get or put key-value pair."
 
 # adding app user
